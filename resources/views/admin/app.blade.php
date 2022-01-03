@@ -41,7 +41,7 @@
                         <a class="nav-link" href="{{ url('admin/slider') }}">Slider</a>
                     </li>
                     <li class="nav_item">
-                        <a class="nav-link" href="{{ url('admin/posts') }}">Post</a>
+                        <a class="nav-link" href="{{ url('admin/post') }}">Post</a>
                     </li>
                     <li class="nav_item">
                         <a class="nav-link" href="{{ url('admin/mainmenu') }}">Main Menu</a>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,13 +45,13 @@ Route::middleware('checkAdmin')->group(function(){
 		});
 
         //Menu Post
-		Route::prefix('posts')->group(function(){
-			Route::get('/', [PostsController::class, 'index']);
-			Route::get('create', [PostsController::class, 'create']);
-			Route::post('create', [PostsController::class, 'insert']);
-			Route::get('edit/{id}', [PostsController::class, 'edit']);
-			Route::post('edit/{id}', [PostsController::class, 'update']);
-			Route::get('delete/{id}', [PostsController::class, 'delete']);
+		Route::prefix('post')->group(function(){
+			Route::get('/', [PostController::class, 'index']);
+			Route::get('create', [PostController::class, 'create']);
+			Route::post('create', [PostController::class, 'insert']);
+			Route::get('edit/{id}', [PostController::class, 'edit']);
+			Route::post('edit/{id}', [PostController::class, 'update']);
+			Route::get('delete/{id}', [PostController::class, 'delete']);
 		});
 
         //Menu Slider

@@ -39,4 +39,48 @@ class CategoryController extends Controller
         return redirect ('admin/category')->with('status', 'Gagal menambahkan data');
     }
 
+    public function edit($id){
+    	$data = Category::find($id);
+    	return view('admin.category.edit', compact('data'));
+    }
+
+    public function update(Request $request, $id){
+    	$d = Category::find($id);
+    	if ($d == null) {
+    		return redirect('admin/category')->with('status', 'Data tidak ditemukan !');
+    	}
+
+    	$req = $request->all();
+
+    	if ($request->hasFile('image')) {
+    		if ($d->image !== null) {
+    			File::delete("$d->image");
+    		}
+    		$category = Str::random("20") . "-" . $request->image->getClientOriginalName();
+    		$request->file('image')->move("file/category/", $category);
+    		$req['image'] = "file/category/" . $category;
+    	}
+
+    	$data = category::find($id)->update($req);
+    	if ($data) {
+    		return redirect('admin/category')->with('status', 'Category berhasil diedit !');
+    	}
+    	return redirect('admin/category')->with('status', 'Gagal edit category !');
+    }
+
+    public function delete($id){
+    	$data = Category::find($id);
+    	if ($data == null) {
+    		return redirect('admin/category')->with('status','Data tidak ditemukan !');
+    	}
+    	if ($data->image !== null || $data->image !== "") {
+    		File::delete("$data->image");
+    	}
+    	$delete = $data->delete();
+    	if ($delete) {
+    		return redirect('admin/category')->with('status','Berhasil hapus category !');
+    	}
+    	return redirect('admin/category')->with('status', 'Gagal hapus category !');
+    }
+
 }
