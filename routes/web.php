@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +76,11 @@ Route::middleware('checkAdmin')->group(function(){
 		});
 
         //Menu Message
-		Route::get('/message', [MessageController::class, 'index']);
+		Route::prefix('message')->group(function(){
+			Route::get('/', [MessageController::class, 'index']);
+			Route::get('create', [MessageController::class, 'create']);
+			Route::get('delete/{id}', [MessageController::class, 'delete']);
+		});
 
 		Route::prefix('profile')->group(function(){
 			Route::get('{id}', [AdminController::class, 'edit']);
