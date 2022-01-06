@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MainmenuController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\PortalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,20 @@ Route::middleware('checkAdmin')->group(function(){
 		});
 	});
 });
+
+// Routes Portal
+Route::get('/', [PortalController::class, 'index']);
+Route::get('about', [PortalController::class, 'about']);
+Route::get('contact', [PortalController::class, 'contact']);	
+Route::get('post', [PortalController::class, 'post']);	
+Route::get('post-detail/{id}', [PortalController::class, 'postDetail']);
+Route::get('menu/{id}', [PortalController::class, 'menu']);
+Route::get('category/{id}', [PortalController::class, 'category']);
+Route::get('search', [PortalController::class, 'search']);
+Route::prefix('comment')->group(function(){
+	Route::post('/', [CommentController::class, 'insert']);
+});	
+Route::prefix('contact')->group(Function(){
+	Route::post('/', [MessageController::class, 'insert']);
+});
+
